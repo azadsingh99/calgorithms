@@ -1,23 +1,23 @@
 #include<iostream>
 using namespace std;
 
-int fibonacci(int n)
+int fibonacci(int num)
 {
-    if(n==0 || n==1)
+    if(num == 0 || num == 1)
     {
         return 1;
     }
 
-    return fibonacci(n-1) + fibonacci(n-2);
+    return fibonacci(num-1) + fibonacci(num-2);
 }
 int main()
 {
-    int n;
+    int num;
 
-    cout << "Enter the value of n";
-    cin >> n;
+    cout << "Enter the value of num" << endl;
+    cin >> num;
 
-    for(int i=0; i<n; i++)
+    for(int i=0; i<num; i++)
     {
         cout << fibonacci(i) << " ";
     }
