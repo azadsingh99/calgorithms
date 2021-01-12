@@ -3,7 +3,6 @@ using namespace std;
 
 int summ(int sum)
 {
-    static int add = 0;
 
     if(sum > 0)
     {
