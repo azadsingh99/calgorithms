@@ -13,7 +13,7 @@ void duplicates(char *str, int n)
        temp[num2]++;
     }
 
-    for(int i=0; i<25; i++)
+    for(int i=0; i<25; i++) 
     {
         if(temp[i] > 1)
         {
