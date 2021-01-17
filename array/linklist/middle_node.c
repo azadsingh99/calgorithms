@@ -4,9 +4,9 @@ struct node {
     int data;
     struct node *next;
 };
-void insert_into_linklist(struct node* head)
+struct node * insert_into_linklist(struct node* head)
 {
-    struct node *temp, *p;
+    struct node *temp = NULL, *p = NULL;
     int val;
 
     while(1)
@@ -16,7 +16,7 @@ void insert_into_linklist(struct node* head)
 
         if(val == 0)
         {
-            return;
+             return head;
         }
 
         if(head == NULL)
@@ -34,9 +34,9 @@ void insert_into_linklist(struct node* head)
             temp->next = NULL;
             p->next = temp;
             p = temp;
-        }
-        
+        }   
     }
+
 }
 
 void print_linklist(struct node* head)
@@ -53,7 +53,8 @@ void print_linklist(struct node* head)
 int main()
 {
     struct node *head = NULL;
-    insert_into_linklist(head);
+    head = insert_into_linklist(head);
+
     print_linklist(head);
     return 0;
 }

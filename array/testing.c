@@ -33,3 +33,20 @@ int main()
         printf("%d\n", arr[i]);
     }
 }
+
+/*
+SinglyLinkedListNode temp = head;
+        SinglyLinkedListNode insertNode = new SinglyLinkedListNode(data);
+ 
+        if(head == null) {
+            return insertNode;
+        }
+ 
+        while(temp.next != null) {
+            temp = temp.next;
+        }
+        temp.next  = insertNode;
+        insertNode.next = null;
+ 
+        return head;
+*/
