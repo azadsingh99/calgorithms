@@ -113,29 +113,65 @@ void add_at_middle(struct node *head)
         return;
     }
 
+    temp = (struct node *)malloc(sizeof(struct node *));
     printf("Enter the node to be inserted in Linklist\n");
-    scanf("%d", &val);
+    scanf("%d", &temp->data);
 
-    temp = p = head;
+    temp2 = p = head;
     int i=0;
     while(i < position-1)
     {
-        p = temp;
-        temp = temp->next;
+        p = temp2;
+        temp2 = temp2->next;
         i++;
     }
 
-    temp2 = temp->next;
-    temp->data = val;
     p->next = temp;
-    p = temp;
     temp->next = temp2;
-
 }
 
-void delete(struct node *head)
+struct node * delete_node(struct node *head)
 {
-    
+    struct node *temp, *p;
+    int val, count=0;
+
+    printf("Enter the node to be deleted\n");
+    scanf("%d", &val);
+
+    temp = p = head;
+    while(temp){
+        if(val == temp->data)
+        {
+            if(count == 0)
+            {
+                p = head->next;
+                free(head);
+                head = p;
+                return head;
+            }
+
+            else
+            {
+                temp = head;
+                int i=0;
+                while(i < count)
+                {
+                    p = temp;
+                    temp = temp->next;
+                    i++;
+                }
+
+                p->next = temp->next;
+                free(temp);
+                return head;
+            }
+        }
+        temp = temp->next;
+        count++;
+    }
+
+    printf("Node is not Present");
+
 }
 int main()
 {
@@ -157,6 +193,6 @@ int main()
     print_list(head);
     printf("\n");
 
-    delete_node(head);
+    head = delete_node(head);
     print_list(head);
 }
