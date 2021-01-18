@@ -85,12 +85,14 @@ void add_at_last(struct node *head)
 
 void print_list(struct node *temp)
 {
+
     printf("Final Linklist is :::: ");
     while(temp)
     {
         printf("%d ", temp->data);
         temp = temp->next;
     }
+    printf("\n");
 }
 
 void add_at_middle(struct node *head)
@@ -135,11 +137,13 @@ struct node * delete_node(struct node *head)
     struct node *temp, *p;
     int val, count=0;
 
-    printf("Enter the node to be deleted\n");
+    printf("Enter the value of the node to be deleted\n");
     scanf("%d", &val);
 
     temp = p = head;
-    while(temp){
+
+    while(temp) {
+
         if(val == temp->data)
         {
             if(count == 0)
@@ -160,7 +164,7 @@ struct node * delete_node(struct node *head)
                     temp = temp->next;
                     i++;
                 }
-
+  
                 p->next = temp->next;
                 free(temp);
                 return head;
@@ -170,8 +174,38 @@ struct node * delete_node(struct node *head)
         count++;
     }
 
-    printf("Node is not Present");
+    printf("Node is not Present\n");
+    return head;
 
+}
+
+struct node * sorting_list(struct node *head)
+{
+    struct node *temp, *p;
+
+    temp = p = head;
+
+    
+}
+
+struct node * reverse_linklist(struct node *head)
+{
+    struct node *temp, *p, *q;
+    q =  NULL;
+
+    printf("\nSorting Linklist::: \n");
+    temp = p  = head;
+
+    while(temp) 
+    {
+        temp = temp->next;
+        p->next = q;
+        q = p;
+        p = temp;
+    }
+
+    head = q;
+    return head;
 }
 int main()
 {
@@ -194,5 +228,11 @@ int main()
     printf("\n");
 
     head = delete_node(head);
+    print_list(head);
+
+    //head = sorting_list(head);
+    //print_list(head);
+
+    head = reverse_linklist(head);
     print_list(head);
 }
