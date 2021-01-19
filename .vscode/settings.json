@@ -1,7 +1,11 @@
 {
     "files.associations": {
         "iostream": "cpp",
-        "new": "cpp"
+        "new": "cpp",
+        "array": "c",
+        "string_view": "c",
+        "initializer_list": "c",
+        "utility": "c"
     },
     "C_Cpp.errorSquiggles": "Enabled"
 }

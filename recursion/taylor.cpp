@@ -28,5 +28,5 @@ int main()
     cout << "Enter the value of x and n";
     cin >> x >> n;
 
-    cout << "Result of the taylor Series is : " << e(x,n);
+    cout << "Result of the taylor Series is : " << e(x,n) << endl;
 }

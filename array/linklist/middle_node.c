@@ -23,7 +23,8 @@ struct node * insert_into_linklist(struct node* head)
         {
             head = (struct node *)malloc(sizeof(struct node *));
             head->data = val;
-            head->next = NULL;
+            head->left = NULL;
+            head->right = NULL;
             p = head; 
         }
 
