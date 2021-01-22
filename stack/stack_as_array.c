@@ -8,7 +8,7 @@ struct stack {
 
 int isfull(struct stack *st)
 {
-    if(st->top == st->size)
+    if(st->top >= (st->size-1))
     {   
         return 1;
     }
@@ -18,6 +18,7 @@ int isfull(struct stack *st)
 
 int isempty(struct stack *st)
 {
+    
     if(st->top == -1)
     {
         return 1;
@@ -35,25 +36,60 @@ void push(struct stack *st)
     if(isfull(st))
     {
         printf("Stack Overflow\n");
+        return;
     }
     st->top++;
     st->arr[st->top] = data;
 }
 
-void traverse(struct stack *st)
+void pop(struct stack *st)
 {
-    if(isempty)
+    if(isempty(st))
     {
         printf("Stack Underflow\n");
         return;
     }
-    for(int i=0; i<st->top; i++)
+    
+    int x = st->arr[st->top];
+    st->top--;
+    printf("Poped Element is :::: %d\n", x);
+}
+void traverse(struct stack *st)
+{
+    if(isempty(st))
+    {
+        printf("Stack Underflow\n");
+        return;
+    }
+    for(int i=0; i<=st->top; i++)
     {
         printf("%d ", st->arr[i]);
     }
 
     printf("\n");
 }
+
+void peak(struct stack *st)
+{
+    if(isempty(st))
+    {
+        printf("Stack Underflow\n");
+        return;
+    }
+
+    int index;
+    printf("Enter the index which you wanna see\n");
+    scanf("%d", &index);
+
+    if(index > st->top)
+    {
+        printf("Index is Greater\n");
+        return;
+    }
+
+    printf("Value at Index %d is %d\n", index, st->arr[index]);
+}
+
 int main()
 {
     struct stack st;
@@ -67,7 +103,7 @@ int main()
 
     while(1)
     {
-
+        printf("\n");
         printf("Operations to perform :\n");
         printf("1. Push\n");
         printf("2. Pop\n");
@@ -78,11 +114,6 @@ int main()
         printf("7. Exit\n");
 
         scanf("%d", &option);
-        
-        if(option == 7)
-        {
-            break;
-        }
 
         switch(option)
         {
@@ -90,6 +121,14 @@ int main()
                     push(&st);
                     break;
             
+            case 2:
+                    pop(&st);
+                    break;
+            
+            case 3:
+                    peak(&st);
+                    break;
+
             case 4:
                     traverse(&st);
                     break;
@@ -101,6 +140,12 @@ int main()
             case 6:
                     isempty(&st);
                     break;
+            
+            case 7:
+                    exit(0);
+            
+            default:
+                    printf("Invalid Choice!!!!\n");
 
         }
 
