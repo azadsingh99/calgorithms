@@ -1,24 +1,22 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-
-struct stack {
+struct node {
     int size;
     int top;
-    char *str;
+    char *st;
 };
 
-int isempty(struct stack *st)
+int isempty(struct node *stack)
 {
-    int len = strlen(st->str);
-    
-    if(len != 0)
+    if(strlen(stack->st) == 0)
     {
         return 1;
     }
 
     return 0;
 }
+
 int precedence(char ch)
 {
     if(ch == '+' || ch == '-')
@@ -33,80 +31,99 @@ int precedence(char ch)
 
     return 0;
 }
-char *push(struct stack *st, char ch, int preced, char *postfix)
+char * push(struct node *stack, char ch)
 {
-    int len = strlen(postfix);
-    int value;
+     
+    int i = stack->top, preced, value;
     char val;
+    static char *temp = NULL;
+    static int j=0;
+    temp = (char *)malloc(sizeof(char *));
+    preced = precedence(ch);
 
-        while(1)
+    if(isempty(stack))
+    {
+        stack->top++;
+        stack->st[stack->top] = ch;
+        return "";
+    }
+
+    else
+    {   
+        while(i >= 0)
         {
-            val = st->str[st->top];
+            val = stack->st[stack->top];
             value = precedence(val);
-
-            int i= st->top;
-
-            if(isempty(st))
+            if(preced > value)
             {
-                st->top++;
-                st->str[st->top] = ch;
-                break;
-            }
-            
-            else if(preced > value)
-            {
-                st->top++;
-                st->str[st->top] = ch;
-                break;
+               stack->top++;
+               stack->st[stack->top] = ch; 
+               temp[j] = ch;
+               j++;
+               return "";
             }
 
             else
             {
-                len++;
-                postfix[len] = ch;
+                temp[j] = stack->st[stack->top];
+                j++;
+                stack->top--;
             }
+
+            printf("Temp is :::: %s\n", temp);
+            i--;
         }
-    return postfix;
+    }
+    return temp;
 }
-void postfix(struct stack *st, char *exp)
+
+void postfix(struct node *stack, char *str)
 {
-    char *postfix;
-    postfix = (char *)malloc(st->size * sizeof(char *));
-    int preced, j=0;
-    
-    for(int i=0; i<st->size; i++)
+    char *postfix, *temp;
+    postfix = (char *)malloc(stack->size * sizeof(char *));
+    temp = (char *)malloc(sizeof(char *));
+    int j = 0, k = 0;
+    for(int i=0; i<strlen(str); i++)
     {
-        if(exp[i] == '-' || exp[i] == '+' || exp[i] == '*' || exp[i] == '/')
+        k = 0;
+        if(str[i] == '+' || str[i] == '-' || str[i] == '*' || str[i] == '/')
         {
-            preced = precedence(exp[i]);
-            postfix = push(st, exp[i], preced, postfix);
+            temp  = push(stack, str[i]);   
+            while(k < strlen(temp))
+            {
+                postfix[j] = temp[k];
+                j++,k++;
+            }
         }
 
         else
         {
-             printf("I am here\n");
-           int j = strlen(postfix);
-           j++;
-           postfix[j] = exp[i];
+            postfix[j] = str[i];
+            j++;
         }
-    }  
+    }
+
+    while(stack->top >= 0)
+    {
+        postfix[j] = stack->st[stack->top];
+        stack->top--;
+        j++;
+    }
+    printf("String is :::: %s\n", postfix);
 }
 int main()
 {
-    struct stack *st;
+    struct node *stack;
+    char *str = (char *)malloc(sizeof(char *));
 
-    char *exp;
+    stack = (struct node *)malloc(sizeof(struct node *));
 
-    exp = (char *)malloc(sizeof(char *));
- 
     printf("Enter the expression:\n");
-    scanf("%s", exp);
-    int len  = strlen(exp);
+    scanf("%s", str);
 
-    printf("Size is ::::: %d\n",len); 
-    st->size = len;
-    
-    //st->str = (char *)malloc(len * sizeof(char *));
-    
-    postfix(st, exp);
+    stack->size = strlen(str);
+    stack->top = -1;
+    stack->st = (char *)malloc(stack->size * sizeof(char *));
+   //printf("%s", str);
+    postfix(stack, str);
 }

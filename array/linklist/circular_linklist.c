@@ -94,19 +94,83 @@ struct node *add_at_last(struct node *head)
     scanf("%d", &val);
 
     temp = head;
-    do {
+    
+    do{
         temp = temp->right;
-    }while(temp != head);
+    }while(temp->right != head);
 
-    printf("Temp Data :::: %d\n", temp->data);
     p = (struct node *)malloc(sizeof(struct node *));
     p->data = val;
 
-    temp->right = p;
     p->left = temp;
+    temp->right = p;
     p->right = head;
     head->left = p;
+
     return head;
+}
+
+struct node *add_at_middle(struct node *head)
+{
+    struct node *temp, *p, *q;
+    int count=0, val, position;
+
+    temp = head;
+
+    do{
+        count++;
+        temp = temp->right;
+    }while(temp != head);
+
+    printf("Enter the position to insert node:\n");
+    scanf("%d", &position);
+
+    if(position > count)
+    {
+        printf("Invalid Position\n");
+        return head;
+    }
+
+    printf("Enter the node to be inserted into the Linked List:\n");
+    scanf("%d", &val);
+
+    int i=0; 
+    temp = head;
+    while(i < position)
+    {
+        p = temp;
+        temp = temp->right;
+        i++;
+    }
+
+    q = (struct node *)malloc(sizeof(struct node *));
+    q->data = val;
+
+    q->right = temp;
+    temp->left = q;
+
+    q->left = p;
+    p->right = q;
+
+    return head;
+
+}
+
+void reverse_linklist(struct node *head)
+{
+    struct node *temp;
+
+    temp = head;
+
+    do{
+        temp = temp->right;
+    }while(temp->right != head);
+
+    while(temp != head)
+    {
+        printf("%d ", temp->data);
+        temp = temp->left;
+    }
 
 }
 int main()
@@ -117,6 +181,7 @@ int main()
 
     while(1)
     {
+        printf("\n");
         printf("1. Insert Nodes\n");
         printf("2. Add at Begin\n");
         printf("3. Add at Last\n");
@@ -143,6 +208,14 @@ int main()
                     head = add_at_last(head);
                     break;
             
+            case 4:
+                    head = add_at_middle(head);
+                    break;
+
+            case 5:
+                    reverse_linklist(head);
+                    break;
+
             case 6:
                     print_list(head);
                     break;

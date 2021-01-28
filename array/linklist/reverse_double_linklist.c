@@ -75,71 +75,25 @@ void traverse(struct node *temp)
 
     printf("\n");
 }
-struct node *insert_at_last(struct node *head)
+
+struct node *reverse(struct node *head)
 {
     struct node *temp, *p;
-    int val;
-
-    printf("Enter the node to be added at Last:\n");
-    scanf("%d", &val);
 
     temp = head;
-    while(temp){
-        p = temp;
+    while(temp->right){
         temp = temp->right;
     }
 
-    temp = (struct node *)malloc(sizeof(struct node *));
-    temp->data = val;
-    p->right = temp;
-    temp->left = p;
-
-    return head;
-}
-
-struct node *insert_at_middle(struct node *head)
-{
-
-
-    struct node *temp, *p, *q ;
-    int val, position, count = 0;
-
-    temp = head;
+    printf("Reversed Linklist is ::: ");
+    
     while(temp)
     {
-        count++;
-        temp = temp->right;
+        printf("%d ", temp->data);
+        temp = temp->left;
     }
+    printf("\n");
 
-    printf("Enter the Position where you wanna insert the node\n");
-    scanf("%d", &position);
-
-    if(position > count) {
-        printf("Invalid Position\n");
-        return head;
-    }
-
-    printf("Enter the node to be inserted into the Linked List:\n");
-    scanf("%d", &val);
-
-    p = (struct node *)malloc(sizeof(struct node *));
-    p->data = val;
-
-    int i=0;
-    temp = head;
-    while(i < position)
-    {
-        temp = temp->right;
-        i++;
-    }
-
-    q = temp->left;
-    p->right = temp;
-    temp->left = p;
-    p->left = q;
-    q->right = p;
-
-    return head;
 }
 int main()
 {
@@ -148,12 +102,5 @@ int main()
     head = insert(head);
     traverse(head);
 
-    head = insert_at_begin(head);
-    traverse(head);
-
-    head = insert_at_last(head);
-    traverse(head);
-
-    head = insert_at_middle(head);
-    traverse(head);
+    head = reverse(head);
 }
