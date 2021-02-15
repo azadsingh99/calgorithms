@@ -6,8 +6,6 @@ struct node {
     int *que;
 };
 
-
-
 int main()
 {
     struct node *queue = NULL;

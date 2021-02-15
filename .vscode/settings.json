@@ -5,7 +5,9 @@
         "array": "c",
         "string_view": "c",
         "initializer_list": "c",
-        "utility": "c"
+        "utility": "c",
+        "iosfwd": "cpp",
+        "list": "cpp"
     },
     "C_Cpp.errorSquiggles": "Enabled"
 }
